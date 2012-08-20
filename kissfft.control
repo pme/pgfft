@@ -1,0 +1,6 @@
+# kissfft extension
+comment = 'Fast-Fourier transformer (fft)'
+default_version = '0.0.1'
+module_pathname = '$libdir/kissfft'
+relocatable = true
+

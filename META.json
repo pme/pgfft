@@ -1,0 +1,43 @@
+{
+	"name": "kissfft",
+		"abstract": "Fast-Fourier transformer",
+		"description": "Performs fast-fourier transformation",
+		"version": "0.0.1",
+		"maintainer": [
+			"Peter Meszaros <hauptadler@gmail.com>"
+			],
+		"license": "postgresql",
+		"provides": {
+			"kissfft": {
+		    "abstract": "Fast-Fourier transformer",
+				"file": "sql/kissfft.sql",
+				"docfile": "README.md",
+				"version": "0.0.1"
+			}
+		},
+		"prereqs": {
+			"runtime": {
+				"requires": {
+					"PostgreSQL": "9.1.0"
+				}
+			},
+			"test": {
+				"requires": {
+					"plpgsql": 0
+				}
+			}
+		},
+		"resources": {
+			"repository": {
+        "web":  "https://github.com/pme/pgfft.git",
+        "url":  "git://github.com/pme/pgfft.git",
+				"type": "git"
+			}
+		},
+		"tags": [
+			"fft",
+		  "fourier"
+			"kissfft",
+			]
+}
+

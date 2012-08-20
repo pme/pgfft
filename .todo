@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<todo version="0.1.20">
+    <note priority="medium" time="1345464105">
+        github module
+    </note>
+    <note priority="medium" time="1345464113">
+        pgxn module
+    </note>
+    <note priority="medium" time="1345464124">
+        E-mail to Mark.
+    </note>
+    <note priority="medium" time="1345464160">
+        simple test of the fft
+    </note>
+</todo>
