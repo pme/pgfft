@@ -56,7 +56,7 @@ Datum fft_agg_finalfn(PG_FUNCTION_ARGS)
 	ndims  = ARR_NDIM(input);
 	dims   = ARR_DIMS(input);
 	eltype = ARR_ELEMTYPE(input);
-	/* elog(INFO, "input dim: %d hasnull: %d elemtype: %d", ndims, *dims, eltype); */
+	/* elog(INFO, "input ndims: %d dims: %d elemtype: %d", ndims, *dims, eltype); */
 
   Assert(ndims == 1);
 	Assert(eltype == FLOAT4OID);
@@ -75,8 +75,10 @@ Datum fft_agg_finalfn(PG_FUNCTION_ARGS)
 	cx_out = palloc0(*dims * sizeof(kiss_fft_cpx));
 
 	/* apply scale */
-	for (i=0; i<*dims; i++) 
-	    cx_in[i].r = DatumGetFloat4(data[i]);
+	for (i=0; i<*dims; i++)  {
+	  cx_in[i].r = DatumGetFloat4(data[i]);
+    /* elog(INFO, "%d %f %f", i, DatumGetFloat4(data[i]), cx_in[i].i); */
+  }
 
   if ((cfg = kiss_fft_alloc(*dims, 0, 0, 0)) == NULL)
 		elog(ERROR, "kiss_fft_alloc() failed");
@@ -84,17 +86,18 @@ Datum fft_agg_finalfn(PG_FUNCTION_ARGS)
   kiss_fft(cfg, cx_in, cx_out);
 
 	for (i=0; i<*dims; i++) {
-    data[i] = (cx_out[i].r * cx_out[i].r + cx_out[i].i * cx_out[i].i) / (double)*dims;
+    ((float *)data)[i] = (cx_out[i].r * cx_out[i].r + cx_out[i].i * cx_out[i].i) / ((double)*dims);
     /*
     printf("%23.15e  %23.15e\n", freq / (double)n * (double)i,
 		    (cx_out[i].r * cx_out[i].r + cx_out[i].i * cx_out[i].i) / (double)n);
     */
+		/* elog(INFO, "data %d %f", i, (double)(data[i])); */
 	}
 
   /*
   elog(INFO, "odata: %p dims: %d otype: %d olen: %d obyval: %d align: %d",
       data, *dims, eltype, typlen, typbyval, typalign);
-  */
+	*/
 
 	result = construct_array((void *)data, *dims, eltype, typlen, typbyval, typalign);
 
