@@ -1,7 +1,10 @@
 <?xml version="1.0"?>
 <todo version="0.1.20">
-    <note priority="medium" time="1345464105">
+    <note priority="medium" time="1345464105" done="1345588533">
         github module
+        <comment>
+            Done.
+        </comment>
     </note>
     <note priority="medium" time="1345464113">
         pgxn module
